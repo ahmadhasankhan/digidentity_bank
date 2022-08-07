@@ -67,3 +67,6 @@ group :development do
   # gem "spring"
 end
 
+gem 'devise'
+gem 'devise-bootstrap-views', '~> 1.0'
+
