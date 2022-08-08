@@ -1,0 +1,25 @@
+<%= form_with(model: [account, transaction]) do |f| %>
+  <% if transaction.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this account_transaction from being saved:</h2>
+      <ul>
+        <% transaction.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :account_number %>
+    <%= f.text_field :receiver_id, autofocus: true, autocomplete: 'false', class: 'form-control', placeholder: "eg: UN-01-DIGI-1234567890" %>
+    <small id="emailHelp" class="form-text text-muted">Never share your personal details with anyone else.</small>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :amount %>
+    <%= f.number_field :amount, autofocus: true, autocomplete: 'false', class: 'form-control' %>
+  </div>
+
+  <%= f.submit "Transfer", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,11 @@
+<div class="card">
+  <h5 class="card-header">Account: <%= @account.account_number %></h5>
+  <div class="card-body">
+    <h5 class="card-title">$ <%= @account.balance %></h5>
+    <p class="card-text">To transfer the money please select below button.</p>
+    <%= link_to 'Send Money', new_account_transaction_path(@account), class: "btn btn-primary" %>
+  </div>
+</div>
+</br>
+<h2> Recent Debits</h2>
+<%= render 'transactions/transaction', transactions: @account.transactions %>
