@@ -17,6 +17,7 @@ class Transaction < ApplicationRecord
   before_create :assign_reference_no
 
   validates :amount, numericality: { greater_than: 0 }
+  validates :reference_number, uniqueness: { case_sensitive: false }
 
   private
 

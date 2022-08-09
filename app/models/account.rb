@@ -6,29 +6,29 @@ class Account < ApplicationRecord
 
   validates :account_number, :account_type, presence: true
   validates :balance, numericality: { greater_than: -1 }
+  validates :account_number, uniqueness: { case_sensitive: false }
 
   enum account_type: {
     saving: 0,
     current: 1
   }
 
-  def withdraw(amount)
-    self.update!(balance: self.balance - amount)
-  end
-
-  def deposit(amount)
-    self.update!(balance: self.balance + amount)
-  end
-
-  def self.transfer(transaction, receiver_no)
-    transaction.receiver = find_receiver_account(transaction, receiver_no)
+  def withdraw(transaction)
     if transaction.amount <= transaction.account.balance
-      transaction.account.withdraw(transaction.amount)
-      transaction.receiver.deposit(transaction.amount)
+      self.update!(balance: self.balance - transaction.amount)
     else
       transaction.errors.add(:base, "Insufficient balance.")
       raise ActiveRecord::RecordInvalid.new(transaction)
     end
+  end
+
+  def deposit(transaction)
+    self.update!(balance: self.balance + transaction.amount)
+  end
+
+  def self.transfer(transaction)
+    transaction.account.withdraw(transaction)
+    transaction.receiver.deposit(transaction)
   end
 
   def self.find_receiver_account(transaction, receiver_no)

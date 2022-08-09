@@ -7,5 +7,6 @@ class AccountsController < ApplicationController
 
   def show
     @account = current_user.accounts.find(params[:id])
+    @transactions = Transaction.where(account_id: @account.id).or(Transaction.where(receiver_id: @account.id))
   end
 end

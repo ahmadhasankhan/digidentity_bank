@@ -15,8 +15,9 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       begin
+        @transaction.receiver = Account.find_receiver_account(@transaction, transaction_params[:receiver_id])
         Account.transaction do
-          Account.transfer(@transaction, transaction_params[:receiver_id])
+          Account.transfer(@transaction)
         end
         @transaction.status = :success
         @transaction.message = 'Transaction was successful'
