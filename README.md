@@ -23,5 +23,5 @@ Just run `rspec`
 
 Test Coverage
 
-![Test coverage](https://github.com/ahmadhasankhan/digidentity_bank/blob/main/coverage.png?raw=true)
+![Test coverage](https://github.com/ahmadhasankhan/digidentity_bank/blob/main/public/coverage.png?raw=true)
 
