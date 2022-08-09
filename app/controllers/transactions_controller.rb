@@ -35,7 +35,7 @@ class TransactionsController < ApplicationController
   private
 
   def set_account
-    @account = Account.find(params[:account_id])
+    @account = current_user.accounts.find(params[:account_id])
   end
 
   # Only allow a list of trusted parameters through.
