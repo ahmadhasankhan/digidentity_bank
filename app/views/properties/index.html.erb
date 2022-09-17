@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Properties</h1>
+
+<div id="properties">
+  <div class="row">
+    <% @properties.each do |property| %>
+      <div class="col-sm">
+        <%= render property %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "New property", new_property_path %>

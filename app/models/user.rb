@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :accounts, dependent: :destroy
+  has_many :bids, dependent: :destroy
 
   validates_presence_of :first_name, :last_name, :username, :email
   validates :username, :email, uniqueness: { case_sensitive: false }

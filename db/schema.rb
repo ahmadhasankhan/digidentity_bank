@@ -10,31 +10,111 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_07_152223) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_04_112032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", force: :cascade do |t|
-    t.string "account_number"
-    t.integer "account_type", default: 0
-    t.bigint "user_id", null: false
-    t.decimal "balance", default: "0.0"
+  create_table "businesses", force: :cascade do |t|
+    t.string "registration_number"
+    t.string "name"
+    t.integer "business_type", default: 0
+    t.string "owner_name"
+    t.string "father_name"
+    t.string "mobile"
+    t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "bids", force: :cascade do |t|
+    t.float "amount"
+    t.bigint "property_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_bids_on_property_id"
+    t.index ["user_id"], name: "index_bids_on_user_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.integer "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.string "iso"
+    t.string "iso3"
+    t.string "nicename"
+    t.integer "numcode"
+    t.integer "phonecode"
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "title"
+    t.string "ownership"
+    t.integer "property_type"
+    t.integer "nature_of_property"
+    t.float "price"
+    t.text "address"
+    t.float "total_area"
+    t.integer "status"
+    t.float "lat"
+    t.float "long"
+    t.integer "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.string "iso"
+    t.integer "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transactions", force: :cascade do |t|
     t.string "reference_number", null: false
     t.decimal "amount"
     t.integer "transaction_type", default: 0
-    t.bigint "account_id", null: false
+    t.bigint "business_id", null: false
     t.integer "receiver_id", null: false
     t.integer "status", default: 0, null: false
     t.string "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.index ["business_id"], name: "index_transactions_on_business_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,5 +143,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_07_152223) do
   end
 
   add_foreign_key "accounts", "users"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bids", "properties"
+  add_foreign_key "bids", "users"
   add_foreign_key "transactions", "accounts"
 end

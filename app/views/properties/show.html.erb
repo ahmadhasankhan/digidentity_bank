@@ -1,0 +1,61 @@
+<p style="color: green"><%= notice %></p>
+
+<div id="<%= dom_id @property %>">
+  <p>
+    <strong>Title:</strong>
+    <%= @property.title %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= @property.price %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= @property.address %>
+  </p>
+
+  <p>
+    <strong>Total area:</strong>
+    <%= @property.total_area %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= @property.status %>
+  </p>
+
+  <p>
+    <strong>property Type:</strong>
+    <%= @property.property_type %>
+  </p>
+
+  <p>
+    <strong>Nature Of property:</strong>
+    <%= @property.nature_of_property %>
+  </p>
+
+
+  <div>
+    <% @property.uploads.each do |upload| %>
+      <%= image_tag upload.variant(resize_to_fill: [200, nil]) %>
+    <% end %>
+  </div>
+
+  <div>
+    <% @property.property_docs.each do |doc| %>
+      <%= image_tag doc.variant(resize_to_fill: [200, nil]) %>
+    <% end %>
+  </div>
+</div>
+
+
+<div>
+  <%= link_to "Edit this property", edit_property_path(@property) %> |
+  <%= link_to "Back to properties", properties_path %>
+
+  <%= button_to "Destroy this property", @property, method: :delete %>
+</div>
+
+<%= link_to "Bid", new_property_bid_path(@property), class:"btn btn-primary" %>

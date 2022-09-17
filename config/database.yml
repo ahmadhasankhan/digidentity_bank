@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: digidentity_bank_development
+  database: cherki_panchayat_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: digidentity_bank_test
+  database: cherki_panchayat_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: digidentity_bank_production
+  database: cherki_panchayat_production
   username: digidentity_bank
   password: <%= ENV["DIGIDENTITY_BANK_DATABASE_PASSWORD"] %>
