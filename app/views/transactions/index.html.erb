@@ -1,3 +1,4 @@
-<h1>Transactions For <strong><%= @account.account_number %></strong></h1>
+<h1>Transactions <strong><%= @business.name %></strong></h1>
+<small>Registration Number: <%= @business.registration_number %></small>
 <%= render 'transaction', transactions: @transactions %>
 

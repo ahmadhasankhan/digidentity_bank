@@ -8,45 +8,41 @@
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
-    </div>
+    </div>w
   <% end %>
 
-  <div>
+  <div class="form-group">
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :registration_number, style: "display: block" %>
-    <%= form.text_field :registration_number %>
-  </div>
-
-  <div>
+  <div class="form-group">
     <%= form.label :business_type, style: "display: block" %>
-    <%= form.number_field :business_type %>
+    <%= form.select :business_type, options_for_select(Business.business_types.map {|k, _| [k.humanize.capitalize, k.to_sym]}), {}, {class: "form-control"}  %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :owner_name, style: "display: block" %>
-    <%= form.text_field :owner_name %>
+    <%= form.text_field :owner_name, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :father_name, style: "display: block" %>
-    <%= form.text_field :father_name %>
+    <%= form.text_field :father_name, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :mobile, style: "display: block" %>
-    <%= form.text_field :mobile %>
+    <%= form.text_field :mobile, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="form-group">
     <%= form.label :address, style: "display: block" %>
-    <%= form.text_field :address %>
+    <%= form.text_area :address, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit "Register", class: "btn btn-primary" %>
   </div>
 <% end %>
+

@@ -1,14 +1,42 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Businesses</h1>
-
-<div id="businesses">
-  <% @businesses.each do |business| %>
-    <%= render business %>
-    <p>
-      <%= link_to "Show this business", business %>
-    </p>
-  <% end %>
+<div class="row">
+  <div class="col">
+    <h1>Businesses</h1>
+  </div>
+  <div class="col text-right">
+    <%= link_to "Add New business", new_business_path, class: "btn btn-success" %>
+  </div>
 </div>
 
-<%= link_to "New business", new_business_path %>
+
+<div id="businesses">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Registration No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Business Type</th>
+      <th scope="col">Owner</th>
+      <th scope="col">Address</th>
+      <th scope="col">Registration Date</th>
+      <th scope="col">Pay</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @businesses.each_with_index do |business, i| %>
+      <tr>
+        <th scope="row"><%= i + 1 %></th>
+        <td><%= link_to business.registration_number, business_path(business) %></td>
+        <td><%= business.name %></td>
+        <td><%= business.business_type.humanize %></td>
+        <td><%= business.owner_name %></td>
+        <td><%= business.address %></td>
+        <td><%= business.created_at.strftime("%-d/%-m/%y: %H:%M") %></td>
+        <td><%= link_to 'Pay', new_business_transaction_path(business), class: "btn btn-info btn-sm" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

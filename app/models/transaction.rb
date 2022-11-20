@@ -1,9 +1,4 @@
 class Transaction < ApplicationRecord
-  enum transaction_type: {
-    credit: 0,
-    debit: 1
-  }
-
   enum status: {
     initiated: 0,
     pending: 1,
@@ -11,8 +6,12 @@ class Transaction < ApplicationRecord
     failed: 3
   }
 
-  belongs_to :account
-  belongs_to :receiver, class_name: 'Account', foreign_key: 'receiver_id' # Considering transfer within app only
+  enum transaction_type:{
+    tax_payment: 0,
+    registration: 1,
+  }
+
+  belongs_to :business
 
   before_create :assign_reference_no
 
@@ -22,6 +21,6 @@ class Transaction < ApplicationRecord
   private
 
   def assign_reference_no
-    self.reference_number = "#{rand.to_s[2..11]}-#{DateTime.now.to_i}"
+    self.reference_number = "CP#{rand(3)}#{DateTime.now.to_i}"
   end
 end

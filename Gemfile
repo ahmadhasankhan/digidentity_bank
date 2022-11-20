@@ -73,3 +73,5 @@ end
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem "city-state"
+gem "prawn"
+gem 'prawn-table'

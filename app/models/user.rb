@@ -10,11 +10,4 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :last_name, :username, :email
   validates :username, :email, uniqueness: { case_sensitive: false }
 
-  after_create :create_bank_account
-
-  private
-
-  def create_bank_account
-    self.accounts.create!
-  end
 end

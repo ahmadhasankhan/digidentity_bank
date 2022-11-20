@@ -10,21 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_04_112032) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_16_071517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "businesses", force: :cascade do |t|
-    t.string "registration_number"
-    t.string "name"
-    t.integer "business_type", default: 0
-    t.string "owner_name"
-    t.string "father_name"
-    t.string "mobile"
-    t.string "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -54,52 +42,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_04_112032) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "bids", force: :cascade do |t|
-    t.float "amount"
-    t.bigint "property_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["property_id"], name: "index_bids_on_property_id"
-    t.index ["user_id"], name: "index_bids_on_user_id"
-  end
-
-  create_table "cities", force: :cascade do |t|
+  create_table "businesses", force: :cascade do |t|
     t.string "name"
-    t.integer "state_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "countries", force: :cascade do |t|
-    t.string "name"
-    t.string "iso"
-    t.string "iso3"
-    t.string "nicename"
-    t.integer "numcode"
-    t.integer "phonecode"
-  end
-
-  create_table "properties", force: :cascade do |t|
-    t.string "title"
-    t.string "ownership"
-    t.integer "property_type"
-    t.integer "nature_of_property"
-    t.float "price"
-    t.text "address"
-    t.float "total_area"
-    t.integer "status"
-    t.float "lat"
-    t.float "long"
-    t.integer "city_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "states", force: :cascade do |t|
-    t.string "name"
-    t.string "iso"
-    t.integer "country_id"
+    t.string "registration_number"
+    t.integer "business_type"
+    t.string "owner_name"
+    t.string "father_name"
+    t.string "mobile"
+    t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -109,7 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_04_112032) do
     t.decimal "amount"
     t.integer "transaction_type", default: 0
     t.bigint "business_id", null: false
-    t.integer "receiver_id", null: false
+    t.integer "from_year", null: false
+    t.integer "to_year", null: false
     t.integer "status", default: 0, null: false
     t.string "message"
     t.datetime "created_at", null: false
@@ -142,10 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_04_112032) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bids", "properties"
-  add_foreign_key "bids", "users"
-  add_foreign_key "transactions", "accounts"
+  add_foreign_key "transactions", "businesses"
 end

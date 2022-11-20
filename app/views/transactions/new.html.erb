@@ -1,9 +1,9 @@
-<h1>New transaction</h1>
-
-<%= render "form", account: @account, transaction: @transaction %>
+<h1>Payment for <%= @business.name %></h1>
+<br>
+<%= render "form", business: @business, transaction: @transaction %>
 
 <br>
 
 <div>
-  <%= link_to "Back to account transactions", account_transactions_path %>
+  <%= link_to "Check business last transactions", business_transactions_path(@business) %>
 </div>
